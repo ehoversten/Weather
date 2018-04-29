@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather API</title>
+    <link rel="stylesheet" href="weather.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        // var weatherAPI = " http://api.openweathermap.org/data/2.5/forecast/daily?id=524901&APPID=c3feca2740879a5fa95f6c3285b09321";
+        var weatherAPI = 'http://api.openweathermap.org/data/2.5/weather?q=';
+
+        var apiKey = '&APPID=081e63315f1a9a0b29cdc852c853230d';
+        var newKey = '&APPID=96eedf4ad7f3846818fb1675387c805e';
+        var davyKey = '&APPID=e6412d609af168ecd57717d365cc9e99';
+
+        $('button').click(function() {
+          // $('h1:last, h2:last').remove();
+          var location = $('#location').val();
+          console.log(location);
+          // your code here (build up your url)
+          $.get(weatherAPI+location+apiKey, function(return_data) {
+              // your code here
+              console.log(return_data);
+              // var location = $('#location').val();
+              // console.log(location);
+
+              // convert from Kelvin to Fahrenheight 0 K = -459.67 deg F
+              var tempF = Math.trunc(return_data.main.temp * 9/5 - 459.67);
+              console.log(tempF + ' Degrees Fahrenheit');
+          }, 'json');
+          // don't forget to return false so the page doesn't refresh
+          return false;
+        });
+
+
+        // $.get(weatherAPI, function(data) {
+        //   console.log(data);
+        // }, 'json');
+
+      });
+
+
+      // $(document).ready(function(){
+      //   var key = '&APPID=e6412d609af168ecd57717d365cc9e99', api = 'http://api.openweathermap.org/data/2.5/weather?q=';
+      //   $('form').submit(function(){
+      //       $('h1:last, h2:last').remove();
+      //       var search = $('#location').val();
+      //       $.get(api+search+key,function(data){
+      //           var tempF =Math.trunc(data.main.temp*9/5-459.67);
+      //           $('body').append('<h1>'+search+'</h1><h2>Temperature: '+tempF+'&#176;F</h2>')
+      //       })
+      //       return false;
+      //   })
+      // });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div id="form">
+          <input id="location" type="text">
+          <button type="submit" name="button">Search</button>
+          <!-- <input type="submit" value="Search Weather"> -->
+        </div>
+        <div id="result">
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
